@@ -35,7 +35,7 @@ def grade():
         try:
             timestamp_qr = int(timestamp)
         except ValueError:
-             return {"score": 0.0, "message": f"Invalid QR Code {decifrado_str}"}
+             return {"score": 0.0, "message": f"Invalid QR Code {decryptedqrstring}"}
 
         now = int(time.time())
         difference = now - timestamp_qr
