@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador Daniboy</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body style="text-align:center; font-family: sans-serif;">
+
+    <div id="div-setup">
+        <h3>CONFIGURAÇÃO</h3>
+        <p>Frase Secreta:</p>
+        <input type="password" id="id-seed">
+        <br><br>
+        <button onclick="salvar()">SALVAR</button>
+    </div>
+
+    <div id="div-app" style="display:none">
+        <br>
+        <button onclick="gerar()">GERAR QRCODE</button>
+        <br><br>
+        <div id="qrcode" style="display: flex; justify-content: center;"></div>        
+        <br><br><br>
+        <button onclick="resetar()" style="font-size: 0.8em;">Trocar Frase Secreta</button>
+    </div>
+
+    <script>
+        const seedArmazenada = localStorage.getItem("SEED");
+        if (seedArmazenada) {
+            document.getElementById("div-setup").style.display = "none";
+            document.getElementById("div-app").style.display = "block";
+        }
+
+        // Funções de Controle
+        function salvar() {
+            const val = document.getElementById("id-seed").value;
+            if (val) { localStorage.setItem("SEED", val.trim()); location.reload(); }
+        }
+
+        function resetar() {
+            if(confirm("Redefinir frase?")) { localStorage.clear(); location.reload(); }
+        }
+
+        function gerar() {
+            document.getElementById("qrcode").innerHTML = "";
+            const seed = localStorage.getItem("SEED");
+            const key = CryptoJS.SHA256(seed);
+            const ts = Math.floor(Date.now() / 1000).toString();
+            const payload = ts;
+            const encrypted = CryptoJS.AES.encrypt(payload, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            }).toString();
+
+            // 4. Desenha QR
+            new QRCode(document.getElementById("qrcode"), {
+                text: encrypted,
+                width: 256,
+                height: 256
+            });
+        }
+    </script>
+</body>
+</html>

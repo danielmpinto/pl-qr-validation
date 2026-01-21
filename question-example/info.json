@@ -1,0 +1,18 @@
+{
+  "uuid": "c5e84fd6-aa1c-4787-82d2-a2cd88166127",
+  "title": "Question XX",
+  "topic": "Default",
+  "type": "v3",
+  "singleVariant": true,
+  "gradingMethod": "External",
+  "externalGradingOptions": {
+    "enabled": true,
+    "enableNetworking": false,
+    "image": "dockerhub-user/dockerhub-image",
+    "timeout": 30,
+    "entrypoint": "/grade/tests/run.sh",
+    "serverFilesCourse": [     
+            "seed.txt"
+    ]
+  }
+}
