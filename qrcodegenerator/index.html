@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador Daniboy</title>
+    <title>PL QR Generator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
@@ -11,20 +11,20 @@
 <body style="text-align:center; font-family: sans-serif;">
 
     <div id="div-setup">
-        <h3>CONFIGURAÇÃO</h3>
-        <p>Frase Secreta:</p>
+        <h3>Settings</h3>
+        <p>Seed:</p>
         <input type="password" id="id-seed">
         <br><br>
-        <button onclick="salvar()">SALVAR</button>
+        <button onclick="save()">Save</button>
     </div>
 
     <div id="div-app" style="display:none">
         <br>
-        <button onclick="gerar()">GERAR QRCODE</button>
+        <button onclick="generates()">QR Code GEN</button>
         <br><br>
         <div id="qrcode" style="display: flex; justify-content: center;"></div>        
         <br><br><br>
-        <button onclick="resetar()" style="font-size: 0.8em;">Trocar Frase Secreta</button>
+        <button onclick="reset()" style="font-size: 0.8em;">Trocar Frase Secreta</button>
     </div>
 
     <script>
@@ -34,17 +34,16 @@
             document.getElementById("div-app").style.display = "block";
         }
 
-        // Funções de Controle
-        function salvar() {
+        function save() {
             const val = document.getElementById("id-seed").value;
             if (val) { localStorage.setItem("SEED", val.trim()); location.reload(); }
         }
 
-        function resetar() {
-            if(confirm("Redefinir frase?")) { localStorage.clear(); location.reload(); }
+        function reset() {
+            if(confirm("Reset SEED?")) { localStorage.clear(); location.reload(); }
         }
 
-        function gerar() {
+        function generates() {
             document.getElementById("qrcode").innerHTML = "";
             const seed = localStorage.getItem("SEED");
             const key = CryptoJS.SHA256(seed);
@@ -55,7 +54,6 @@
                 padding: CryptoJS.pad.Pkcs7
             }).toString();
 
-            // 4. Desenha QR
             new QRCode(document.getElementById("qrcode"), {
                 text: encrypted,
                 width: 256,
