@@ -1,24 +1,14 @@
 # classroom-qr-checkin
-Simple Secure QR CODE  validation infrastructure for PrairieLearn.
+
+A Python-based automation tool designed to integrate with **PrairieLearn**. This project validates student submissions for labs and generates a cryptographically signed **QR Code** as proof of completion.
+
+* **Secure Validation:** Generates a unique hash upon successful test completion.
+* **Visual Proof:** Renders a "Validated" QR Code in instuctors smartphone, that can be scanned by students.
 
 
-## First Step
-Take your smartphone and generates a QR Code.
+## Docker Build
 
-## Second Step
-Ask the student to take a photo using the webcam.
-
-## Third Step
-Let the grader do its job.
-
-
-
-
-
-## Docker updt
-
-Building container
-
+Need to updt with --platform linux/amd64 for working with PrairieLearn.
 
 docker build --platform linux/amd64 -t your_user/your_image:latest .
 
