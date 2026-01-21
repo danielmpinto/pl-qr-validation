@@ -10,7 +10,7 @@ from Crypto.Util.Padding import unpad
 # load essential files
 FILES = {
     "seed": "/grade/serverFilesCourse/seed.txt",
-    "img":  "/grade/student/validation.jpg"
+    "img":  "/grade/student/qrcode.jpg"
 }
 
 # set the tolerance (seconds)
