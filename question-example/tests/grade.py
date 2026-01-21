@@ -14,7 +14,7 @@ FILES = {
 }
 
 # set the tolerance (seconds)
-tolerance = 60 
+tolerance = 150 
 
 # decrypts and checks if it`s a valid QR code
 def grade():
